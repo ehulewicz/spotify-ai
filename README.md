@@ -4,46 +4,42 @@ A project to integrate AI-driven music recommendations and social listening expe
 
 ## Project Roadmap
 
-### 1. Basic Website Functionality
-   **Objective**: Create a functional website as the platform for Spotify-AI.
+### 1. Basic Website Setup with GPT
+**Objective**: Establish a reusable website foundation with a dedicated GPT model for conversational features.
 
-   **Tasks**:
-   - [x] Set up frontend and backend architecture.
-   - [x] Develop user authentication (sign-up, log-in).
-   - [x] Basic UI components for navigation, profile, and settings.
+**Tasks**:
+- [ ] Set up frontend and backend architecture.
+- [ ] Develop an API to interact with GPT.
+- [ ] Configure GPT for general conversational use.
 
-### 2. Dedicated GPT
-   **Objective**: Integrate a GPT model to handle conversational features.
+### 2. UI, Navigation, and User Authentication
+**Objective**: Complete the website's user-facing components and secure authentication.
 
-   **Tasks**:
-   - [x] Set up an API to interact with GPT.
-   - [x] Customize GPT responses to align with music-related topics.
-   - [x] Optimize the model for efficient response times.
+**Tasks**:
+- [ ] Finalize UI components (navigation, profile, settings, GPT page).
+- [ ] Set up user authentication (sign-up, log-in).
+- [ ] Implement smooth navigation and basic user settings.
 
-### 3. Spotify API
-   **Objective**: Access and manipulate Spotify data.
+### 3. Spotify API Integration
+**Objective**: Access and manipulate Spotify data within the platform.
 
-   **Tasks**:
-   - [x] Set up Spotify API authentication and token management.
-   - [x] Retrieve user playlists, favorite tracks, and other music data.
-   - [x] Implement controls (e.g., play, pause, next track) through the API.
+**Tasks**:
+- [ ] Set up Spotify API authentication and token management.
+- [ ] Retrieve user playlists, favorite tracks, and other music data.
+- [ ] Implement basic music controls (e.g., play, pause, next track).
 
-### 4. GPT and Spotify Integration
-   **Objective**: Merge GPT's conversational ability with Spotify's music data.
+### 4. GPT and Spotify Data Personalization
+**Objective**: Enhance GPT with Spotify data for music-related interactions and optimize responses based on user needs.
 
-   **Tasks**:
-   - [x] Enable GPT to access Spotify data to provide personalized music recommendations.
-   - [x] Develop conversational prompts related to users’ Spotify activity.
-   - [x] Fine-tune GPT to respond based on real-time Spotify data.
+**Tasks**:
+- [ ] Integrate GPT with Spotify data to provide personalized music recommendations.
+- [ ] Fine-tune GPT responses to align with music-related topics and conversational relevance.
+- [ ] Optimize GPT response efficiency, focusing on real-time interaction based on specific project needs.
 
-### 5. Virtual Spotify Build for Friends
-   **Objective**: Create a virtual social experience for sharing music with friends.
+### 5. Spotify Virtual Environment
+**Objective**: Build a virtual environment to run spotify and pull data from non-public friends of user.
 
-   **Tasks**:
-   - [x] Build a virtual room where users can connect and share music in real-time.
-   - [x] Integrate group playlists and synchronized playback.
-   - [x] Allow for GPT-driven music suggestions and discussions within group settings.
-
----
-
-This roadmap will guide the Spotify-AI project from a basic platform to a fully integrated music experience with personal and social features.
+**Tasks**:
+- [ ] Create docker environment to run spotify and be accessed by GPT.
+- [ ] Pull following/follwer list directly from spoitfy.
+- [ ] Use data from followed friends that is not public.
