@@ -8,8 +8,9 @@ A project to integrate AI-driven music recommendations and social listening expe
 **Objective**: Establish a reusable website foundation with a dedicated GPT model for conversational features.
 
 **Tasks**:
-- [ ] Set up frontend and backend architecture.
-- [ ] Develop an API to interact with GPT.
+- [x] Set up frontend and backend architecture.
+- [x] Create frontend supporting interaction with GPT.
+- [x] Setup basic GPT wrapper with chatbox.
 - [ ] Configure GPT for general conversational use.
 
 ### 2. UI, Navigation, and User Authentication
