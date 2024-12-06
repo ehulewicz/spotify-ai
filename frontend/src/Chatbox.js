@@ -7,10 +7,7 @@ const Chatbox = () => {
   const [messages, setMessages] = useState([]);
   const textareaRef = useRef(null);
 
-  const [test, rawSetTest] = useState('');
-  const setTest = (text) => {
-    rawSetTest((prevTest) => prevTest + '\n' + text);
-  }
+  const [test, setTest] = useState('');
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -24,7 +21,7 @@ const Chatbox = () => {
       e.preventDefault();
       setInput((prevInput) => prevInput + '\n');
     } else if (e.key === 'Enter') {
-      rawSetTest('testing handleSend');
+      setTest('Awating response...');
       e.preventDefault();
       handleSend();
     }
@@ -38,7 +35,7 @@ const Chatbox = () => {
     setInput('');
   
     try {
-      const response = await fetch('http://localhost:5001/chat/', {
+      const response = await fetch('http://localhost:5001/gpt/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ import os
 from openai import OpenAI
 
 # Load environment variables
-load_dotenv('config/.env')
+load_dotenv('.env')
 
 # GPT Client Wrapper
 class GPTClient:
