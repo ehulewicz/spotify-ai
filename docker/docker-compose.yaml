@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5001:5001"
+    volumes:
+      - ../backend:/app
+    env_file:
+      - ../backend/.env
+    networks:
+      - app-network
+  
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile.frontend
+    volumes:
+      - ../frontend:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    
+  # spotify:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.spotify
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: bridge

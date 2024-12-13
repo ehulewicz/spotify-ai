@@ -50,10 +50,10 @@ const Chatbox = () => {
         const gptMessage = { sender: 'gpt', text: data.response };
         setMessages((prevMessages) => [...prevMessages, gptMessage]);
       } else {
-        setTest('Error: ' + data.error);
+        setTest('Error1: ' + data.error);
       }
     } catch (error) {
-      setTest('Error: ' + error);
+      setTest('Error2: ' + error);
     }
   };
 
