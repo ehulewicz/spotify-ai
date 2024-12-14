@@ -146,7 +146,3 @@ Thumbs.db
 *.bak
 *.tmp
 *.old
-
-# Ignore package manager lock files (optional, depending on your workflow)
-package-lock.json
-yarn.lock
