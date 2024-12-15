@@ -2,13 +2,17 @@ from flask import Flask
 from flask_cors import CORS
 from api import gpt
 from models import database
-from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
 CORS(app)
 
+print(f"Instance Path: {app.instance_path}")
+print(f"Database Path: {os.path.join(app.instance_path, 'spotify_ai.db')}")
+print(f"Current Directory: {os.getcwd()}")
+
 # config and initilize databse
+os.makedirs("instance", exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{app.instance_path}/spotify_ai.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 database.init_app(app)
