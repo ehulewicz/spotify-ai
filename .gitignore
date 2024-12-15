@@ -1,1 +1,10 @@
+/.vscode
+
+# frontend
+/frontend/node_modules
+
+# backend
 /backend/.env
+/backend/venv
+/backend/__pycache__
+/backend/*/__pycache__
