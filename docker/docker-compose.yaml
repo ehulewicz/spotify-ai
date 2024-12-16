@@ -23,12 +23,12 @@ services:
     networks:
       - app-network
     
-  # spotify:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.spotify
-  #   networks:
-  #     - app-network
+  spotify:
+    build:
+      context: .
+      dockerfile: Dockerfile.spotify
+    networks:
+      - app-network
 
 networks:
   app-network:

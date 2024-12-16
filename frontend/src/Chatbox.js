@@ -35,6 +35,7 @@ const Chatbox = () => {
     setInput('');
   
     try {
+        // ${window.location.hostname} only matters if going to containerize web browser (backend instead of localhost)
         const response = await fetch(`http://${window.location.hostname}:5001/gpt/`, {
         method: 'POST',
         headers: {

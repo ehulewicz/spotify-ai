@@ -1,0 +1,42 @@
+FROM ubuntu:20.04
+
+# Set environment variables for non-interactive installation
+ENV DEBIAN_FRONTEND=noninteractive
+ENV DISPLAY=:0
+
+# Update and install necessary base packages
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    curl \
+    sudo \
+    ca-certificates \
+    x11-apps \
+    libxss1 \
+    libasound2 \
+    libatomic1 \
+    libglib2.0-0 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxi6 \
+    libxtst6 \
+    libnss3 \
+    libcups2 \
+    libxrandr2 \
+    libgconf-2-4 \
+    libpango1.0-0 \
+    libxkbcommon-x11-0 \
+    --no-install-recommends
+
+# Ensure CA certificates are up to date
+RUN update-ca-certificates
+
+# Add Spotify's GPG key and repository
+RUN curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/spotify.gpg && \
+    echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list
+
+# Install Spotify
+RUN apt-get update && apt-get install -y spotify-client && apt-get clean
+
+# Set the entrypoint
+CMD ["spotify"]
