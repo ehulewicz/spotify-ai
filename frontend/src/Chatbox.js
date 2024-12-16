@@ -35,25 +35,23 @@ const Chatbox = () => {
     setInput('');
   
     try {
-      const response = await fetch('http://localhost:5001/gpt/', {
+        const response = await fetch(`http://${window.location.hostname}:5001/gpt/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message: input }),
       });
-  
+      
       const data = await response.json();
-  
-      if (response.ok) {
-        setTest('Message received successfully')
-        const gptMessage = { sender: 'gpt', text: data.response };
-        setMessages((prevMessages) => [...prevMessages, gptMessage]);
-      } else {
-        setTest('Error1: ' + data.error);
-      }
+      setTest('Message received successfully')
+      setTest(`http://${window.location.hostname}:5001/gpt/`);
+      
+      const gptMessage = { sender: 'gpt', text: data.response };
+      setMessages((prevMessages) => [...prevMessages, gptMessage]);
     } catch (error) {
-      setTest('Error2: ' + error);
+      setTest('' + error);
+      setTest(`http://${window.location.hostname}:5001/gpt/` + '\n' + error);
     }
   };
 

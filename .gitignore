@@ -25,7 +25,6 @@ yarn-error.log*
 .vscode/
 
 # Database
-*.db
 
 # Build and deployment files
 build/
