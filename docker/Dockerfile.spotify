@@ -4,13 +4,10 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:0
 
-# Update and install necessary base packages
-RUN apt-get update && apt-get install -y \
-    wget \
+# Update and install necessary libraries and applications
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    dbus \
     gnupg \
-    curl \
-    sudo \
-    ca-certificates \
     x11-apps \
     libxss1 \
     libasound2 \
@@ -26,7 +23,19 @@ RUN apt-get update && apt-get install -y \
     libgconf-2-4 \
     libpango1.0-0 \
     libxkbcommon-x11-0 \
-    --no-install-recommends
+    lxde-core \
+    lxterminal \
+    libgl1-mesa-glx \
+    libegl1-mesa \
+    libdbus-glib-1-2 \
+    ca-certificates \
+    wget \
+    curl \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the timezone to avoid tzdata prompts
+RUN ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
 
 # Ensure CA certificates are up to date
 RUN update-ca-certificates
@@ -36,7 +45,10 @@ RUN curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | g
     echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list
 
 # Install Spotify
-RUN apt-get update && apt-get install -y spotify-client && apt-get clean
+RUN apt-get update && apt-get install -y --no-install-recommends spotify-client && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set the entrypoint
-CMD ["spotify"]
+# Ensure dbus is running properly in the container
+RUN mkdir -p /var/run/dbus && dbus-uuidgen > /var/run/dbus/machine-id
+
+# Expose X11 and set default entrypoint
+CMD ["/usr/bin/dbus-run-session", "--", "spotify"]
