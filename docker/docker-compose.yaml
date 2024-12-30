@@ -1,47 +1,40 @@
 services:
-  # backend:
-  #   build:
-  #     context: ../backend
-  #     dockerfile: Dockerfile.backend
-  #   ports:
-  #     - "5001:5001"
-  #   volumes:
-  #     - ../backend:/app
-  #   env_file:
-  #     - ../backend/.env
-  #   networks:
-  #     - app-network
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5001:5001"
+    volumes:
+      - ../backend:/app
+    env_file:
+      - ../backend/.env
+    networks:
+      - app-network
   
-  # frontend:
-  #   build:
-  #     context: ../frontend
-  #     dockerfile: Dockerfile.frontend
-  #   volumes:
-  #     - ../frontend:/app
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - app-network
-    
-  # spotify:
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile.frontend
+    volumes:
+      - ../frontend:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  # containerized spotify if needed
+  # gui-app:
   #   build:
   #     context: .
   #     dockerfile: Dockerfile.spotify
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix  # Share X11 socket with the host
+  #     - .:/app
+  #   environment:
+  #     - DISPLAY=${DISPLAY}  # Use host's display
   #   networks:
   #     - app-network
-
-  gui-app:
-    build:
-      context: .
-      dockerfile: Dockerfile.spotify
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix  # Share X11 socket with the host
-    environment:
-      - DISPLAY=${DISPLAY}  # Use host's display
-    ports:
-      - "5900:5900"  # Optional: if you need to forward TightVNC
-    networks:
-      - app-network
 
 networks:
   app-network:

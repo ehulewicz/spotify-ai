@@ -6,6 +6,9 @@ ENV DISPLAY=:0
 
 # Update and install necessary libraries and applications
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    python \
+    pip \
+    tesseract-ocr \
     dbus \
     gnupg \
     x11-apps \
@@ -32,7 +35,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     curl \
     sudo \
+    firefox \
+    xdg-utils \
     && rm -rf /var/lib/apt/lists/*
+
+# Set Firefox as the default browser
+RUN xdg-settings set default-web-browser firefox.desktop
 
 # Set the timezone to avoid tzdata prompts
 RUN ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
@@ -49,6 +57,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends spotify-client 
 
 # Ensure dbus is running properly in the container
 RUN mkdir -p /var/run/dbus && dbus-uuidgen > /var/run/dbus/machine-id
+
+# Screenshot dependencies
+RUN pip install mss
 
 # Expose X11 and set default entrypoint
 CMD ["/usr/bin/dbus-run-session", "--", "spotify"]

@@ -7,10 +7,6 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-print(f"Instance Path: {app.instance_path}")
-print(f"Database Path: {os.path.join(app.instance_path, 'spotify_ai.db')}")
-print(f"Current Directory: {os.getcwd()}")
-
 # config and initilize databse
 os.makedirs("instance", exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{app.instance_path}/spotify_ai.db"
