@@ -1,33 +1,13 @@
 from flask import Blueprint, request, jsonify
-from openai import OpenAI
-from dotenv import load_dotenv
+from services import GPTService
 import os
+from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv('.env')
 
-# GPT Client Wrapper
-class GPTClient:
-    def __init__(self, api_key):
-        if not api_key:
-            raise ValueError("API key is empty")
-        self.client = OpenAI(api_key=api_key)
-    
-    def get_response(self, model, messages):
-        """
-        This function does smth
-        """
-        try:
-            response = self.client.chat.completions.create(
-                model=model,
-                messages=messages
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            raise RuntimeError(f"Error with OpenAI API: {str(e)}")
-
 # Instantiate the GPT client globally
-gpt_client = GPTClient(api_key=os.getenv('OPENAI_API_KEY'))
+gpt_client = GPTService(api_key=os.getenv('OPENAI_API_KEY'))
 
 # Create the Flask Blueprint
 gpt = Blueprint('gpt', __name__)
