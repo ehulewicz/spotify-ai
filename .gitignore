@@ -1,0 +1,44 @@
+# Python-related
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Docker
+*.log
+*.lock
+docker-compose.override.yml
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VSCode
+.vscode/
+
+# Database
+
+# Build and deployment files
+build/
+dist/
+.DS_Store
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+*.old
+*.orig
+Thumbs.db
+
+# Logs and other environment files
+*.log
+.env
