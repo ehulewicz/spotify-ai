@@ -2,16 +2,24 @@ from pynput import mouse
 import mss
 from PIL import Image
 import pytesseract as tess
+import re
 
 def record():
     bounds = get_bounds()
     print("Processing...")
+    
+    img = capture_region(bounds)
+    # img.save("img.png")
+    
+    text = tess.image_to_string(img)
+    text = format(text)
+    print(text)
 
-    for i in range(5000):
-        img = capture_region(bounds)
-        img.save('img.png')
-        with open('img.txt', 'a') as file:
-            file.write(tess.image_to_string('img.png'))
+def test():
+    text = tess.image_to_string("img.png")
+    print(text)
+    text = format(text)
+    print(text)
 
 def get_bounds(clicks=2):
     counter = 0
@@ -53,18 +61,20 @@ def capture_region(bounds):
     }
 
     mss_img = mss.mss().grab(region)
-    return Image.frombytes('RGB', mss_img.size, mss_img.rgb)
+    return Image.frombytes("RGB", mss_img.size, mss_img.rgb)
 
-def print_originals():
-    lines = {}
-    with open('img.txt', 'r') as file:
-        for line in file:
-            line = line.strip()
-            if line not in lines:
-                lines[line] = 0
-            lines[line] += 1
-    
-    for line, count in lines.items():
-        print(f"{count}:::{line}")
+def format(text):
+    # remove special characters, remove (*)
+    text = re.sub(r"5\]", "\n", text)
+    text = re.sub(r"[^\w\s+:)(-+]", "\n", text)
+    text = re.sub(r"\([^)]*\)", "", text)
 
-print_originals()
+    # normalize whitespace, preserving newlines remove blank lines
+    lines = text.splitlines()
+    cleaned_lines = [re.sub(r"\s+", " ", line) for line in lines]
+    cleaned_lines = [line.strip() for line in lines if line]
+    text = '\n'.join(cleaned_lines)
+
+    return text
+
+test()
