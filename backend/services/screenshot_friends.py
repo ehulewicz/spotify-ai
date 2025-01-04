@@ -1,25 +1,10 @@
 from pynput import mouse
 import mss
-from PIL import Image
-import pytesseract as tess
+from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 import re
-
-def record():
-    bounds = get_bounds()
-    print("Processing...")
-    
-    img = capture_region(bounds)
-    # img.save("img.png")
-    
-    text = tess.image_to_string(img)
-    text = format(text)
-    print(text)
-
-def test():
-    text = tess.image_to_string("img.png")
-    print(text)
-    text = format(text)
-    print(text)
+import pytesseract
+import cv2
+import numpy as np
 
 def get_bounds(clicks=2):
     counter = 0
@@ -63,6 +48,30 @@ def capture_region(bounds):
     mss_img = mss.mss().grab(region)
     return Image.frombytes("RGB", mss_img.size, mss_img.rgb)
 
+def preprocess_image(img):
+    # Convert PIL Image to OpenCV format (numpy array)
+    img_cv = np.array(img)
+    
+    # Convert to grayscale
+    gray = cv2.cvtColor(img_cv, cv2.COLOR_RGB2GRAY)
+    
+    # Apply thresholding
+    _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
+    
+    # Remove noise using GaussianBlur
+    blurred = cv2.GaussianBlur(thresh, (5, 5), 0)
+    
+    # Convert back to PIL Image
+    return Image.fromarray(blurred)
+
+def extract_text_from_image(img):
+    try:
+        custom_config = r'--oem 3 --psm 6'
+        text = pytesseract.image_to_string(img, config=custom_config, lang='eng')
+        return text
+    except Exception as e:
+        return f"An error occurred: {e}"
+
 def format(text):
     # remove special characters, remove (*)
     text = re.sub(r"5\]", "\n", text)
@@ -77,4 +86,16 @@ def format(text):
 
     return text
 
-test()
+print("Click")
+bounds = get_bounds()
+print("Processing...")
+
+screenshot = capture_region(bounds)
+# screenshot.save("img.png")
+
+img = preprocess_image(screenshot)
+
+text = extract_text_from_image(img)
+text = format(text)
+
+print(text)
