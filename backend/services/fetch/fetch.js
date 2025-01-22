@@ -17,7 +17,7 @@ async function main () {
 
     // console.log(JSON.stringify(friendActivity, null, 2));
     // console.log(JSON.stringify(response, null, 2));
-    console.log(result);
+    console.log(JSON.stringify(result));
 }
 
 main()
