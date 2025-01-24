@@ -13,6 +13,3 @@ def get_friend_activity():
     stdout, stderr = process.communicate()
     
     return json.loads(stdout)
-
-friend_activity = get_friend_activity()
-print(friend_activity)
